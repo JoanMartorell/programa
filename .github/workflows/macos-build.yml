@@ -37,10 +37,38 @@ jobs:
         fi
         echo "✓ Aplicación generada exitosamente"
         
-    - name: Subir artefacto (.app)
+    - name: Crear DMG
+      run: |
+        # Crear directorio temporal para el DMG
+        mkdir -p dmg_temp
+        
+        # Copiar la app al directorio temporal
+        cp -R dist/CalculoDeCoste.app dmg_temp/
+        
+        # Crear un enlace simbólico a Aplicaciones (opcional, para facilitar instalación)
+        ln -s /Applications dmg_temp/Aplicaciones
+        
+        # Crear el DMG
+        hdiutil create -volname "CalculoDeCoste" \
+                       -srcfolder dmg_temp \
+                       -ov \
+                       -format UDZO \
+                       dist/CalculoDeCoste.dmg
+        
+        # Verificar que el DMG se creó correctamente
+        if [ ! -f "dist/CalculoDeCoste.dmg" ]; then
+          echo "Error: El DMG no se generó correctamente"
+          exit 1
+        fi
+        echo "✓ DMG generado exitosamente"
+        ls -lh dist/CalculoDeCoste.dmg
+        
+    - name: Subir artefactos (.app y .dmg)
       uses: actions/upload-artifact@v4
       with:
         name: CalculoDeCoste-macOS
-        path: dist/CalculoDeCoste.app
+        path: |
+          dist/CalculoDeCoste.app
+          dist/CalculoDeCoste.dmg
         retention-days: 30
 

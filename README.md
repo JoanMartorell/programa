@@ -27,10 +27,19 @@ Este proyecto está configurado para compilarse automáticamente en la nube usan
    - Una vez completado (verás una marca verde)
    - Click en el workflow completado
    - En "Artifacts" descarga "CalculoDeCoste-macOS"
-   - Descomprime el archivo y tendrás `CalculoDeCoste.app`
+   - Descomprime el archivo y tendrás:
+     - `CalculoDeCoste.app` - La aplicación (carpeta)
+     - `CalculoDeCoste.dmg` - Imagen de disco para instalación fácil
 
 ### Usar la app en macOS:
 
+**Opción 1: Usar el DMG (Recomendado)**
+1. Transfiere `CalculoDeCoste.dmg` a tu Mac
+2. Abre el DMG (doble clic)
+3. Arrastra `CalculoDeCoste.app` a la carpeta "Aplicaciones"
+4. Expulsa el DMG cuando termines
+
+**Opción 2: Usar el .app directamente**
 1. Transfiere `CalculoDeCoste.app` a tu Mac
 2. Si macOS muestra un error de seguridad:
    - Clic derecho → "Abrir"
