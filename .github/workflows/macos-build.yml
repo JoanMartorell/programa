@@ -1,0 +1,46 @@
+name: Compilar para macOS
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Permite ejecutar manualmente desde GitHub
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        
+    - name: Compilar aplicación macOS
+      run: |
+        pyinstaller --clean --noconfirm --windowed --name "CalculoDeCoste" programa.py
+        
+    - name: Verificar que existe la app
+      run: |
+        if [ ! -d "dist/CalculoDeCoste.app" ]; then
+          echo "Error: La app no se generó correctamente"
+          exit 1
+        fi
+        echo "✓ Aplicación generada exitosamente"
+        
+    - name: Subir artefacto (.app)
+      uses: actions/upload-artifact@v4
+      with:
+        name: CalculoDeCoste-macOS
+        path: dist/CalculoDeCoste.app
+        retention-days: 30
+
