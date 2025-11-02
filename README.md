@@ -45,12 +45,27 @@ Este proyecto está configurado para compilarse automáticamente en la nube usan
    - Clic derecho → "Abrir"
    - Confirma en el diálogo de seguridad
 
+### Añadir un icono personalizado:
+
+Para usar un icono personalizado en la aplicación:
+
+1. **Crea o consigue una imagen PNG** cuadrada (recomendado: 1024x1024 píxeles)
+2. **Nombra el archivo como `icon.png`** y colócalo en la raíz del proyecto
+3. El workflow generará automáticamente el formato `.icns` necesario para macOS
+
+**Nota:** También puedes usar directamente un archivo `icon.icns` si ya lo tienes en formato correcto.
+
 ### Compilar localmente (si tienes acceso a un Mac):
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install pyinstaller
+
+# Con icono (si tienes icon.icns o icon.png):
+pyinstaller --clean --noconfirm --windowed --icon icon.icns --name "CalculoDeCoste" programa.py
+
+# Sin icono:
 pyinstaller --clean --noconfirm --windowed --name "CalculoDeCoste" programa.py
 ```
 

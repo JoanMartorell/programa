@@ -16,6 +16,9 @@ build/
 dist/
 *.spec
 
+# Archivos temporales de iconos
+icon.iconset/
+
 # IDEs
 .vscode/
 .idea/
